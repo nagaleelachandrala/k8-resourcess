@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: lables
+  lables:
+      project: expense1
+      component: backend
+      environment: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    
