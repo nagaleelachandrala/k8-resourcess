@@ -1,0 +1,34 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-lb
+spec:
+  type: LoadBalancer
+  selector: #lables are usedas a
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+    demo: lb
+  ports:
+  - protocal: TCP
+    port: 80 # service port
+    targetPort: 80
+    nodePort: 30007
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: backend-lb
+  labels:
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+    demo: np
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    
+
