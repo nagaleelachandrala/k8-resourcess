@@ -4,6 +4,7 @@ metadata:
   name: ebs-static
 spec:
   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  # PV name
   volumeName: ebs-static
   accessModes:
     - ReadWriteOnce
@@ -15,7 +16,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: ebs-static
-  lables:
+  labels:
     purpose: "ebs-static-demo"
 spec:
   nodeSelector:
@@ -37,10 +38,10 @@ metadata:
   name: nginx-lb
 spec:
   type: LoadBalancer
-  selector: #lables are usedas a
+  selector: # labels are used as selectors
     purpose: "ebs-static-demo"
   ports:
-  - protocal: TCP
+  - protocol: TCP
     port: 80 # service port
     targetPort: 80
     nodePort: 30007
