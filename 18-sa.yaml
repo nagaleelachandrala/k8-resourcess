@@ -6,7 +6,17 @@ metadata:
 spec:
   # one pod can contain multiple containers
   serviceAccount: expense1-mysql-secret
+  initContainers:
+  - name: awscli
+    image: amazon/aws-cli
+    command:  [ 'sh', '-c', 'aws secretsmanager get-secret-value --secret-id expense1/mysql/creds --query SecretString --output text > /secrets/.env ']
+    volumeMounts:
+    - mountPath: /secrets
+      name: secret-volume
   containers:
   - name: nginx
     image: nginx
-  
+  volumes:
+  - name: secret-volume
+    emptyDir: {}
+      
